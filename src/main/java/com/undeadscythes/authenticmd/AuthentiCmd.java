@@ -13,7 +13,7 @@ import static org.apache.commons.lang3.ArrayUtils.*;
 /**
  * @author UndeadScythes
  */
-public class AuthentiCmd {
+public abstract class AuthentiCmd {
     /**
      * Ease of access to command line output specified on construction.
      */
@@ -23,9 +23,8 @@ public class AuthentiCmd {
     private final List<Service> services = new ArrayList<Service>(1);
 
     /**
-     *
-     * @param input
-     * @param output
+     * @param input {@link InputStream} that will be used to collect user input.
+     * @param output {@link TipScript} that will be used to display feedback.
      */
     protected AuthentiCmd(final InputStream input, final TipScript output) {
         reader = new BufferedReader(new InputStreamReader(input));
@@ -33,9 +32,10 @@ public class AuthentiCmd {
     }
 
     /**
+     * Set the services that this {@link AuthentiCmd} has access to.
      *
-     * @param serviceClassPaths
-     * @param defaultCmds
+     * @param serviceClassPaths The class paths of each service
+     * @param defaultCmds True to also load {@link Help} and {@link Quit}
      */
     public void setServices(final List<String> serviceClassPaths, final boolean defaultCmds) {
         for (String service : serviceClassPaths) {
@@ -56,28 +56,30 @@ public class AuthentiCmd {
     }
 
     /**
+     * Execute a list of commands, useful for running command line arguments.
      *
-     * @param message
-     * @param cmds
+     * @param message Message to display before execution
+     * @param cmds Commands with arguments
      * @return False if execution should escape the response loop
      */
     public boolean executeCmds(final String message, final String[] cmds) {
-        output.println(message);
+        if (!message.isEmpty()) output.println(message);
         for (String arg : removeElement(cmds, "")) {
             final String[] args = arg.split(" ");
             try {
-                if (!executeCmd(args, "Unrecognized command '" + arg + "'.", arg.length())) return false;
+                if (!executeCmd(args, "Unrecognized command '" + arg + "'.", 0)) return false;
             } catch (ServiceNotFoundException ex) {}
         }
         return true;
     }
 
     /**
+     * Get and execute a user command.
      *
-     * @param prompt
-     * @param error
-     * @param accuracy
-     * @return False if execution should escape the response loop
+     * @param prompt Prompt to display before cursor, does not add a newline
+     * @param error Message to display if no service is matched
+     * @param accuracy Number of characters to match
+     * @return False if the program should quit
      */
     public boolean getCommand(final String prompt, final String error, final int accuracy) {
         do {
@@ -95,7 +97,7 @@ public class AuthentiCmd {
     private boolean executeCmd(final String[] args, final String error, final int accuracy) throws ServiceNotFoundException {
         for (Service service : services) {
             String name = service.getClass().getSimpleName();
-            if (name.equalsIgnoreCase(args[0]) || args[0].toLowerCase().startsWith(name.substring(0, accuracy).toLowerCase())) {
+            if (name.equalsIgnoreCase(args[0]) || (accuracy > 0 ? args[0].toLowerCase().startsWith(name.substring(0, accuracy).toLowerCase()) : false)) {
                 return service.run(this, subarray(args, 1, args.length));
             }
         }
@@ -104,16 +106,15 @@ public class AuthentiCmd {
     }
 
     /**
+     * Get and execute a user command with a default error message.
      *
-     * @param prompt
-     * @param accuracy
+     * @see AuthentiCmd#getCommand
      */
-    public void getCommand(final String prompt, final int accuracy) {
-        getCommand(prompt, "Unrecognized command, try again.", accuracy);
+    public boolean getCommand(final String prompt, final int accuracy) {
+        return getCommand(prompt, "Unrecognized command, try again.", accuracy);
     }
 
     /**
-     *
      * @return Immutable list
      */
     public List<Service> getServices() {
@@ -121,11 +122,12 @@ public class AuthentiCmd {
     }
 
     /**
+     * Get a user string response and validate it.
      *
-     * @param val
-     * @param prompt
-     * @param error
-     * @return Valid response
+     * @param val {@link Validator} to use to validate the string
+     * @param prompt Prompt to display before cursor, does not add a newline
+     * @param error Message to display if no service is matched
+     * @return Validated response
      */
     public String getResponse(final Validator val, final String prompt, final String error) {
         output.println(prompt);
@@ -139,7 +141,6 @@ public class AuthentiCmd {
     }
 
     /**
-     *
      * @return User input
      */
     public String getString() {

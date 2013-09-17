@@ -9,10 +9,10 @@ import com.undeadscythes.authenticmd.*;
  */
 public interface Service {
     /**
-     * 
-     * @param program
-     * @param args
-     * @return False if execution should escape the response loop
+     * @param program Parent {@link AuthentiCmd} that is executing this
+     * {@link Service}
+     * @param args Arguments to send to the service
+     * @return False if the parent {@link AuthentiCmd} needs to quit
      */
     boolean run(AuthentiCmd program, String[] args);
 }

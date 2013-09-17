@@ -3,7 +3,8 @@ package com.undeadscythes.authenticmd.service;
 import com.undeadscythes.authenticmd.*;
 
 /**
- * Provides the user with access to a list of commands currently available.
+ * Provides the user with access to a list of commands for services that are
+ * currently available.
  *
  * @author UndeadScythes
  */
