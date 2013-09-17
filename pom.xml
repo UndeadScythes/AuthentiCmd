@@ -6,24 +6,44 @@
   <groupId>com.undeadscythes</groupId>
   <artifactId>AuthentiCmd</artifactId>
   <version>1.2.6</version>
+    <name>AuthentiCmd</name>
+  <description>A command based application that extends AuthenticCmd has access to a very tidy
+user input handler. AuthentiCmd allows the author to validate input as it
+arrives and initiate a loop to collect user input and run services based on
+these inputs.
+
+Services are defined as operations that can accept command line arguments from
+the user and execute a set of code on request.</description>
+  <url>https://github.com/UndeadScythes/AuthentiCmd</url>
+  <licenses>
+    <license>
+      <name>Creative Commons BY-NC-SA 2.0 UK</name>
+      <url>http://creativecommons.org/licenses/by-nc-sa/2.0/uk/legalcode</url>
+      <distribution>repo</distribution>
+      <comments>Attribution - Non-Commercial - Share-Alike</comments>
+    </license>
+  </licenses>
+  <prerequisites>
+    <maven>2.2.1</maven>
+  </prerequisites>
   <packaging>jar</packaging>
   <dependencies>
     <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>RELEASE</version>
+      <groupId>com.undeadscythes</groupId>
+      <artifactId>TipScript</artifactId>
+      <version>2.2.4</version>
       <type>jar</type>
     </dependency>
     <dependency>
-      <groupId>com.undeadscythes</groupId>
-      <artifactId>TipScript</artifactId>
-      <version>LATEST</version>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.1</version>
       <type>jar</type>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>RELEASE</version>
+      <version>4.11</version>
       <scope>test</scope>
       <type>jar</type>
     </dependency>
@@ -35,26 +55,7 @@
   </properties>
 
   <build>
-    <resources>
-      <resource>
-	<directory>src/main/resources</directory>
-	<filtering>true</filtering>
-      </resource>
-    </resources>
     <plugins>
-      <plugin>
-	<groupId>org.apache.maven.plugins</groupId>
-	<artifactId>maven-clean-plugin</artifactId>
-	<version>2.5</version>
-	<executions>
-	  <execution>
-	    <phase>initialize</phase>
-	    <goals>
-	      <goal>clean</goal>
-	    </goals>
-	  </execution>
-	</executions>
-      </plugin>
       <plugin>
 	<groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
@@ -91,44 +92,19 @@
 	</executions>
       </plugin>
       <plugin>
-	<groupId>org.apache.maven.plugins</groupId>
-	<artifactId>maven-dependency-plugin</artifactId>
-	<version>2.8</version>
+	<groupId>org.codehaus.mojo</groupId>
+	<artifactId>versions-maven-plugin</artifactId>
+	<version>2.1</version>
 	<executions>
 	  <execution>
-	    <phase>process-sources</phase>
+	    <phase>install</phase>
 	    <goals>
-	      <goal>purge-local-repository</goal>
+	      <goal>display-plugin-updates</goal>
+	      <goal>display-dependency-updates</goal>
 	    </goals>
-	    <configuration>
-	      <excludes>
-		<exclude>com.undeadscythes:AuthentiCmd</exclude>
-		<exclude>com.undeadscythes:TipScript</exclude>
-	      </excludes>
-	    </configuration>
 	  </execution>
 	</executions>
       </plugin>
     </plugins>
   </build>
-
-  <name>AuthentiCmd</name>
-  <description>
-A command based application that extends AuthenticCmd has access to a very tidy
-user input handler. AuthentiCmd allows the author to validate input as it
-arrives and initiate a loop to collect user input and run services based on
-these inputs.
-
-Services are defined as operations that can accept command line arguments from
-the user and execute a set of code on request.
-  </description>
-  <url>https://github.com/UndeadScythes/AuthentiCmd</url>
-  <licenses>
-    <license>
-      <name>Creative Commons BY-NC-SA 2.0 UK</name>
-      <url>http://creativecommons.org/licenses/by-nc-sa/2.0/uk/legalcode</url>
-      <distribution>repo</distribution>
-      <comments>Attribution - Non-Commercial - Share-Alike</comments>
-    </license>
-  </licenses>
 </project>
