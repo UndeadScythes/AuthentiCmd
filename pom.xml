@@ -1,31 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.undeadscythes</groupId>
   <artifactId>AuthentiCmd</artifactId>
   <version>1.2.6</version>
-    <name>AuthentiCmd</name>
-  <description>A command based application that extends AuthenticCmd has access to a very tidy
-user input handler. AuthentiCmd allows the author to validate input as it
-arrives and initiate a loop to collect user input and run services based on
-these inputs.
-
-Services are defined as operations that can accept command line arguments from
-the user and execute a set of code on request.</description>
-  <url>https://github.com/UndeadScythes/AuthentiCmd</url>
-  <licenses>
-    <license>
-      <name>Creative Commons BY-NC-SA 2.0 UK</name>
-      <url>http://creativecommons.org/licenses/by-nc-sa/2.0/uk/legalcode</url>
-      <distribution>repo</distribution>
-      <comments>Attribution - Non-Commercial - Share-Alike</comments>
-    </license>
-  </licenses>
-  <prerequisites>
-    <maven>2.2.1</maven>
-  </prerequisites>
   <packaging>jar</packaging>
   <dependencies>
     <dependency>
@@ -58,6 +39,36 @@ the user and execute a set of code on request.</description>
     <plugins>
       <plugin>
 	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-javadoc-plugin</artifactId>
+	<version>2.9.1</version>
+	<executions>
+	  <execution>
+	    <phase>generate-sources</phase>
+	    <goals>
+	      <goal>javadoc</goal>
+	    </goals>
+            <configuration>
+              <quiet>true</quiet>
+            </configuration>
+	  </execution>
+	</executions>
+      </plugin>
+      <plugin>
+	<groupId>org.codehaus.mojo</groupId>
+	<artifactId>versions-maven-plugin</artifactId>
+	<version>2.1</version>
+	<executions>
+	  <execution>
+	    <phase>process-sources</phase>
+	    <goals>
+	      <goal>display-plugin-updates</goal>
+	      <goal>display-dependency-updates</goal>
+	    </goals>
+	  </execution>
+	</executions>
+      </plugin>
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
 	<version>2.6</version>
         <executions>
@@ -78,33 +89,45 @@ the user and execute a set of code on request.</description>
           </execution>
         </executions>
       </plugin>
-      <plugin>
-	<groupId>org.apache.maven.plugins</groupId>
-	<artifactId>maven-javadoc-plugin</artifactId>
-	<version>2.9.1</version>
-	<executions>
-	  <execution>
-	    <phase>generate-sources</phase>
-	    <goals>
-	      <goal>javadoc</goal>
-	    </goals>
-	  </execution>
-	</executions>
-      </plugin>
-      <plugin>
-	<groupId>org.codehaus.mojo</groupId>
-	<artifactId>versions-maven-plugin</artifactId>
-	<version>2.1</version>
-	<executions>
-	  <execution>
-	    <phase>install</phase>
-	    <goals>
-	      <goal>display-plugin-updates</goal>
-	      <goal>display-dependency-updates</goal>
-	    </goals>
-	  </execution>
-	</executions>
-      </plugin>
     </plugins>
   </build>
+
+  <name>AuthentiCmd</name>
+  <description>A command based application that extends AuthenticCmd has access to a very tidy
+user input handler. AuthentiCmd allows the author to validate input as it
+arrives and initiate a loop to collect user input and run services based on
+these inputs.
+
+Services are defined as operations that can accept command line arguments from
+the user and execute a set of code on request.</description>
+  <url>https://github.com/UndeadScythes/AuthentiCmd</url>
+  <inceptionYear>2013</inceptionYear>
+  <licenses>
+    <license>
+      <name>Creative Commons BY-NC-SA 2.0 UK</name>
+      <url>http://creativecommons.org/licenses/by-nc-sa/2.0/uk/legalcode</url>
+      <distribution>repo</distribution>
+      <comments>Attribution - Non-Commercial - Share-Alike</comments>
+    </license>
+  </licenses>
+  <organization>
+    <name>UndeadScythes' Empire</name>
+    <url>http://undeadscythes.com</url>
+  </organization>
+  <developers>
+    <developer>
+      <id>UndeadScythes</id>
+      <name>Dave</name>
+      <email>daveyognaut2@gmail.com</email>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>0</timezone>
+    </developer>
+  </developers>
+
+  <prerequisites>
+    <maven>2.2.1</maven>
+  </prerequisites>
 </project>
