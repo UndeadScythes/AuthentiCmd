@@ -10,17 +10,22 @@ import org.junit.*;
  * @author UndeadScythes
  */
 public class ServiceTest  {
+    private TheProgram program;
+
+    @Before
+    public void init() {
+        program = new TheProgram();
+    }
+
     @Test
     public void testHelpRun() {
-        final TheProgram impl = new TheProgram();
-        impl.setServices(asList(new String[]{Help.class.getName()}), false);
-        assertTrue("run", new Help().run(impl, new String[]{""}));
+        program.setServices(asList(new String[]{Help.class.getName()}), false);
+        assertTrue("run", new Help().run(program, new String[]{""}));
     }
 
     @Test
     public void testQuitRun() {
-        final TheProgram impl = new TheProgram();
-        impl.setServices(asList(new String[]{Help.class.getName()}), false);
-        assertFalse("run", new Quit().run(impl, new String[]{""}));
+        program.setServices(asList(new String[]{Quit.class.getName()}), false);
+        assertFalse("run", new Quit().run(program, new String[]{""}));
     }
 }

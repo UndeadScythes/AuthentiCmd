@@ -11,18 +11,23 @@ import org.junit.*;
  * @author UndeadScythes
  */
 public class AuthentiCmdTest {
+    private TheProgram program;
+
+    @Before
+    public void init() {
+        program = new TheProgram();
+    }
+
     @Test
     public void testSetServices() {
-        TheProgram impl = new TheProgram();
-        impl.setServices(asList(new String[]{Help.class.getName()}), true);
-        assertEquals("services", 3, impl.getServices().size());
+        program.setServices(asList(new String[]{Help.class.getName()}), true);
+        assertEquals("services", 3, program.getServices().size());
     }
 
     @Test
     public void testCmdExecute() {
-        TheProgram impl = new TheProgram();
-        impl.setServices(new ArrayList<String>(0), true);
-        assertFalse("false", impl.executeCmds("", new String[]{"quit"}));
-        assertTrue("true", impl.executeCmds("", new String[]{"help"}));
+        program.setServices(new ArrayList<String>(0), true);
+        assertFalse("false", program.executeCmds("", new String[]{"quit"}));
+        assertTrue("true", program.executeCmds("", new String[]{"help"}));
     }
 }

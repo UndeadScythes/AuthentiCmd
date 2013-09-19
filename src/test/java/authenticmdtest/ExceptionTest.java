@@ -8,18 +8,18 @@ import org.junit.*;
  * @author UndeadScythes
  */
 public class ExceptionTest {
-    private ServiceNotFoundException exception = new ServiceNotFoundException(new String[]{"test1", "test2"});
+    private static final ServiceNotFoundException EXCEPTION = new ServiceNotFoundException(new String[]{"test1", "test2"});
 
     @Test(expected = ServiceNotFoundException.class)
     public void testThrow() throws ServiceNotFoundException {
-        assertNotNull("construct", exception);
-        throw exception;
+        assertNotNull("construct", EXCEPTION);
+        throw EXCEPTION;
     }
 
     @Test
     public void testCatch() {
         try {
-            throw exception;
+            throw EXCEPTION;
         } catch (ServiceNotFoundException ex) {
             assertEquals("message", "Cannot find service for command test1 test2.", ex.getMessage());
         }
