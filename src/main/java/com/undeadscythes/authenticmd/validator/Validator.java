@@ -7,8 +7,7 @@ package com.undeadscythes.authenticmd.validator;
  */
 public interface Validator {
     /**
-     * @param response User supplied response
-     * @return True if the response is valid
+     * Return true if the given response is valid.
      */
     boolean isValid(String response);
 }

@@ -11,11 +11,15 @@ import java.util.*;
 import static org.apache.commons.lang3.ArrayUtils.*;
 
 /**
+ * AuthentiCmd is designed to be extended to provide structure, on its own this
+ * class only provides access to user input and validation.
+ *
  * @author UndeadScythes
  */
 public abstract class AuthentiCmd {
     /**
-     * Ease of access to command line output specified on construction.
+     * Ease of access to command line output {@link TipScript} specified on
+     * construction.
      */
     public final TipScript output;
 
@@ -23,8 +27,7 @@ public abstract class AuthentiCmd {
     private final List<Service> services = new ArrayList<Service>(1);
 
     /**
-     * @param input {@link InputStream} that will be used to collect user input.
-     * @param output {@link TipScript} that will be used to display feedback.
+     * Specify a default {@link InputStream} and {@link TipScript} to use.
      */
     protected AuthentiCmd(final InputStream input, final TipScript output) {
         reader = new BufferedReader(new InputStreamReader(input));
@@ -32,9 +35,9 @@ public abstract class AuthentiCmd {
     }
 
     /**
-     * Set the services that this {@link AuthentiCmd} has access to.
+     * Set the {@link Service}s that this {@link AuthentiCmd} has access to.
      *
-     * @param serviceClassPaths The class paths of each service
+     * @param serviceClassPaths The full class paths of each {@link Service}
      * @param defaultCmds True to also load {@link Help} and {@link Quit}
      */
     public void setServices(final List<String> serviceClassPaths, final boolean defaultCmds) {
@@ -59,8 +62,7 @@ public abstract class AuthentiCmd {
      * Execute a list of commands, useful for running command line arguments.
      *
      * @param message Message to display before execution
-     * @param cmds Commands with arguments
-     * @return False if execution should escape the response loop
+     * @return False signals that a {@link Service} wants the program to close
      */
     public boolean executeCmds(final String message, final String[] cmds) {
         if (!message.isEmpty()) output.println(message);
@@ -79,7 +81,7 @@ public abstract class AuthentiCmd {
      * @param prompt Prompt to display before cursor, does not add a newline
      * @param error Message to display if no service is matched
      * @param accuracy Number of characters to match
-     * @return False if the program should quit
+     * @return False signals that a {@link Service} wants the program to close
      */
     public boolean getCommand(final String prompt, final String error, final int accuracy) {
         do {
@@ -108,26 +110,24 @@ public abstract class AuthentiCmd {
     /**
      * Get and execute a user command with a default error message.
      *
-     * @see AuthentiCmd#getCommand
+     * @see AuthentiCmd#getCommand(String, String, int) getCommand(String, String, int)
      */
     public boolean getCommand(final String prompt, final int accuracy) {
         return getCommand(prompt, "Unrecognized command, try again.", accuracy);
     }
 
     /**
-     * @return Immutable list
+     * Get an immutable list of {@link Service}s currently loaded.
      */
     public List<Service> getServices() {
         return unmodifiableList(services);
     }
 
     /**
-     * Get a user string response and validate it.
+     * Get a user string response and validate it using a {@link Validator}.
      *
-     * @param val {@link Validator} to use to validate the string
      * @param prompt Prompt to display before cursor, does not add a newline
-     * @param error Message to display if no service is matched
-     * @return Validated response
+     * @param error Message to display if response is invalid
      */
     public String getResponse(final Validator val, final String prompt, final String error) {
         output.println(prompt);
@@ -141,7 +141,7 @@ public abstract class AuthentiCmd {
     }
 
     /**
-     * @return User input
+     * Get a single user input.
      */
     public String getString() {
         try {
