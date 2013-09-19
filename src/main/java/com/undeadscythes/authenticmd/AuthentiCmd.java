@@ -24,7 +24,7 @@ public abstract class AuthentiCmd {
     public final TipScript output;
 
     private final BufferedReader reader;
-    private final List<Service> services = new ArrayList<Service>(1);
+    private final List<Service> services = new ArrayList<Service>(0);
 
     /**
      * Specify a default {@link InputStream} and {@link TipScript} to use.
