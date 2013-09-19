@@ -61,7 +61,6 @@
 	  <execution>
 	    <phase>process-sources</phase>
 	    <goals>
-	      <goal>display-plugin-updates</goal>
 	      <goal>display-dependency-updates</goal>
 	    </goals>
 	  </execution>
