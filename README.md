@@ -1,4 +1,4 @@
-# AuthentiCmd - 1.2.6 #
+# AuthentiCmd - 2.0.0-Alpha #
 
 A command based application that extends AuthenticCmd has access to a very tidy
 user input handler. AuthentiCmd allows the author to validate input as it
@@ -15,4 +15,4 @@ AuthentiCmd source code is released under the CC BY-NC-SA 2.0 UK license.
 A copy of this licence is located in the file named LICENCE.lic, if this file is
 not present the text can be found [here](http://creativecommons.org/licenses/by-nc-sa/2.0/uk/legalcode).
 
-Last edited on 2013-09-17.
+Last edited on 2013-09-20.
