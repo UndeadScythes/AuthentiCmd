@@ -5,10 +5,8 @@ import com.undeadscythes.authenticmd.service.*;
 import com.undeadscythes.authenticmd.validator.*;
 import com.undeadscythes.tipscript.*;
 import java.io.*;
-import static java.lang.Class.*;
-import static java.util.Collections.*;
 import java.util.*;
-import static org.apache.commons.lang3.ArrayUtils.*;
+import org.apache.commons.lang3.*;
 
 /**
  * AuthentiCmd is designed to be extended to provide structure, on its own this
@@ -43,7 +41,7 @@ public abstract class AuthentiCmd {
     public void setServices(final List<String> serviceClassPaths, final boolean defaultCmds) {
         for (String service : serviceClassPaths) {
             try {
-                services.add((Service)forName(service).newInstance());
+                services.add((Service)Class.forName(service).newInstance());
             } catch (ClassNotFoundException ex) {
                 output.println("Unimplemented service: " + service);
             } catch (InstantiationException ex) {
@@ -66,7 +64,7 @@ public abstract class AuthentiCmd {
      */
     public boolean executeCmds(final String message, final String[] cmds) {
         if (!message.isEmpty()) output.println(message);
-        for (String arg : removeElement(cmds, "")) {
+        for (String arg : ArrayUtils.removeElement(cmds, "")) {
             final String[] args = arg.split(" ");
             try {
                 if (!executeCmd(args, "Unrecognized command '" + arg + "'.", 0)) return false;
@@ -100,7 +98,7 @@ public abstract class AuthentiCmd {
         for (Service service : services) {
             String name = service.getClass().getSimpleName();
             if (name.equalsIgnoreCase(args[0]) || (accuracy > 0 ? args[0].toLowerCase().startsWith(name.substring(0, accuracy).toLowerCase()) : false)) {
-                return service.run(this, subarray(args, 1, args.length));
+                return service.run(this, ArrayUtils.subarray(args, 1, args.length));
             }
         }
         output.println(error);
@@ -120,7 +118,7 @@ public abstract class AuthentiCmd {
      * Get an immutable list of {@link Service}s currently loaded.
      */
     public List<Service> getServices() {
-        return unmodifiableList(services);
+        return Collections.unmodifiableList(services);
     }
 
     /**

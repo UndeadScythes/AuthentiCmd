@@ -1,6 +1,6 @@
 package com.undeadscythes.authenticmd.exception;
 
-import static org.apache.commons.lang3.StringUtils.*;
+import org.apache.commons.lang3.*;
 
 /**
  * Thrown when a {@link com.undeadscythes.authenticmd.service.Service} cannot be found matching a user's input.
@@ -14,6 +14,6 @@ public class ServiceNotFoundException extends Exception {
      * Provide the command and arguments that caused this exception.
      */
     public ServiceNotFoundException(final String[] args) {
-        super("Cannot find service for command " + join(args, " ") + ".");
+        super("Cannot find service for command " + StringUtils.join(args, " ") + ".");
     }
 }

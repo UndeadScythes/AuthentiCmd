@@ -3,7 +3,6 @@ package authenticmdtest;
 import authenticmdtest.implementation.*;
 import com.undeadscythes.authenticmd.service.*;
 import java.util.*;
-import static java.util.Arrays.*;
 import static org.junit.Assert.*;
 import org.junit.*;
 
@@ -20,7 +19,7 @@ public class AuthentiCmdTest {
 
     @Test
     public void testSetServices() {
-        program.setServices(asList(new String[]{Help.class.getName()}), true);
+        program.setServices(Arrays.asList(new String[]{Help.class.getName()}), true);
         assertEquals("services", 3, program.getServices().size());
     }
 
