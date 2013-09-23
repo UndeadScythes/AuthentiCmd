@@ -1,4 +1,4 @@
-# AuthentiCmd - Alpha-2.1-SNAPSHOT #
+# AuthentiCmd - Alpha-2.1 #
 
 A command based application that extends AuthenticCmd has access to a very tidy
 user input handler. AuthentiCmd allows the author to validate input as it
