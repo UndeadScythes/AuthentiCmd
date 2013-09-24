@@ -20,13 +20,13 @@ public class AuthentiCmdTest {
     @Test
     public void testSetServices() {
         program.setServices(Arrays.asList(new String[]{Help.class.getName()}), true);
-        assertEquals("services", 3, program.getServices().size());
+        assertEquals(3, program.getServices().size());
     }
 
     @Test
     public void testCmdExecute() {
         program.setServices(new ArrayList<String>(0), true);
-        assertFalse("false", program.executeCmds("", new String[]{"quit"}));
-        assertTrue("true", program.executeCmds("", new String[]{"help"}));
+        assertFalse(program.executeCmds("", new String[]{"quit"}));
+        assertTrue(program.executeCmds("", new String[]{"help"}));
     }
 }

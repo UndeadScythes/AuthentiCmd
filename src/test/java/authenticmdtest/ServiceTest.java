@@ -20,12 +20,12 @@ public class ServiceTest  {
     @Test
     public void testHelpRun() {
         program.setServices(Arrays.asList(new String[]{Help.class.getName()}), false);
-        assertTrue("run", new Help().run(program, new String[]{""}));
+        assertTrue(new Help().run(program, new String[]{""}));
     }
 
     @Test
     public void testQuitRun() {
         program.setServices(Arrays.asList(new String[]{Quit.class.getName()}), false);
-        assertFalse("run", new Quit().run(program, new String[]{""}));
+        assertFalse(new Quit().run(program, new String[]{""}));
     }
 }

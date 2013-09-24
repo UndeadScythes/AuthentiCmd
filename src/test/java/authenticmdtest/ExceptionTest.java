@@ -12,7 +12,7 @@ public class ExceptionTest {
 
     @Test(expected = ServiceNotFoundException.class)
     public void testThrow() throws ServiceNotFoundException {
-        assertNotNull("construct", EXCEPTION);
+        assertNotNull(EXCEPTION);
         throw EXCEPTION;
     }
 
@@ -21,7 +21,7 @@ public class ExceptionTest {
         try {
             throw EXCEPTION;
         } catch (ServiceNotFoundException ex) {
-            assertEquals("message", "Cannot find service for command test1 test2.", ex.getMessage());
+            assertEquals("Cannot find service for command test1 test2.", ex.getMessage());
         }
     }
 }
