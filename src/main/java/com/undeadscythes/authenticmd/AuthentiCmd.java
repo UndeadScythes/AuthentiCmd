@@ -57,6 +57,13 @@ public abstract class AuthentiCmd {
     }
 
     /**
+     * Load the {@link Service Services} in the given {@link List}.
+     */
+    public void setServices(final List<Service> services) {
+        this.services.addAll(services);
+    }
+
+    /**
      * Execute a list of commands, useful for running command line arguments.
      *
      * @param message Message to display before execution
