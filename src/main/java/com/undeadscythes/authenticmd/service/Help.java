@@ -8,7 +8,8 @@ import com.undeadscythes.authenticmd.*;
  *
  * @author UndeadScythes
  */
-public class Help implements Service {
+public class Help extends Service {
+    @Override
     public boolean run(final AuthentiCmd program, final String[] args) {
         program.output.println("Available commands:");
         for (Service service : program.getServices()) {

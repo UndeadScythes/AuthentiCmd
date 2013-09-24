@@ -7,7 +7,8 @@ import com.undeadscythes.authenticmd.*;
  *
  * @author UndeadScythes
  */
-public class Quit implements Service {
+public class Quit extends Service {
+    @Override
     public boolean run(final AuthentiCmd program, final String[] args) {
         return false;
     }

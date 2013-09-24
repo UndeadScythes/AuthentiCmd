@@ -7,12 +7,21 @@ import com.undeadscythes.authenticmd.*;
  *
  * @author UndeadScythes
  */
-public interface Service {
+public abstract class Service {
     /**
      * This method will mainly be called by the parent {@link AuthentiCmd} to
      * execute a service.
      *
      * @return False if the parent {@link AuthentiCmd} needs to quit
      */
-    boolean run(AuthentiCmd program, String[] args);
+    public abstract boolean run(final AuthentiCmd program, final String[] args);
+
+    /**
+     * Convenience method for supplying only a single argument.
+     *
+     * @see #run(AuthentiCmd, String[]) run(AuthentiCmd, String[])
+     */
+    public boolean run(final AuthentiCmd program, final String arg) {
+        return run(program, new String[]{arg});
+    }
 }
