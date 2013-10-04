@@ -1,4 +1,4 @@
-# AuthentiCmd - Beta-1.0 #
+# AuthentiCmd - Beta-1.1-SNAPSHOT #
 
 A command based application that extends AuthentiCmd
 has access to a very tidy user input handler. AuthentiCmd allows the

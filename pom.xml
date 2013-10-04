@@ -6,7 +6,7 @@
 
   <groupId>com.undeadscythes</groupId>
   <artifactId>AuthentiCmd</artifactId>
-  <version>Beta-1.0</version>
+  <version>Beta-1.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <dependencies>
     <dependency>
