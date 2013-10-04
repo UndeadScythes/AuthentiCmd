@@ -1,12 +1,13 @@
 package com.undeadscythes.authenticmd;
 
-import com.undeadscythes.authenticmd.exception.*;
+import com.undeadscythes.authenticmd.exception.ServiceNotFoundException;
+import com.undeadscythes.authenticmd.exception.TerminationRequest;
 import com.undeadscythes.authenticmd.service.*;
-import com.undeadscythes.authenticmd.validator.*;
-import com.undeadscythes.tipscript.*;
+import com.undeadscythes.authenticmd.validator.Validator;
+import com.undeadscythes.tipscript.TipScript;
 import java.io.*;
 import java.util.*;
-import org.apache.commons.lang3.*;
+import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * AuthentiCmd is designed to be extended to provide structure, on its own this
@@ -14,13 +15,8 @@ import org.apache.commons.lang3.*;
  *
  * @author UndeadScythes
  */
-public abstract class AuthentiCmd {
-    /**
-     * Ease of access to command line output {@link TipScript} specified on
-     * construction.
-     */
-    public final TipScript output;
-
+public class AuthentiCmd {
+    private final TipScript output;
     private final BufferedReader reader;
     private final List<Service> services = new ArrayList<Service>(0);
 
@@ -67,17 +63,15 @@ public abstract class AuthentiCmd {
      * Execute a list of commands, useful for running command line arguments.
      *
      * @param message Message to display before execution
-     * @return False signals that a {@link Service} wants the program to close
      */
-    public boolean executeCmds(final String message, final String[] cmds) {
+    public void executeCmds(final String message, final String[] cmds) throws TerminationRequest {
         if (!message.isEmpty()) output.println(message);
         for (String arg : ArrayUtils.removeElement(cmds, "")) {
             final String[] args = arg.split(" ");
             try {
-                if (!executeCmd(args, "Unrecognized command '" + arg + "'.", 0)) return false;
+                executeCmd(args, "Unrecognized command '" + arg + "'.", 0);
             } catch (ServiceNotFoundException ex) {}
         }
-        return true;
     }
 
     /**
@@ -86,9 +80,9 @@ public abstract class AuthentiCmd {
      * @param prompt Prompt to display before cursor, does not add a newline
      * @param error Message to display if no service is matched
      * @param accuracy Number of characters to match
-     * @return False signals that a {@link Service} wants the program to close
+     * @return A boolean representing whether the service executed successfully
      */
-    public boolean getCommand(final String prompt, final String error, final int accuracy) {
+    public boolean getCommand(final String prompt, final String error, final int accuracy) throws TerminationRequest {
         do {
             if (!prompt.isEmpty()) {
                 output.println(prompt);
@@ -101,9 +95,9 @@ public abstract class AuthentiCmd {
         } while(true);
     }
 
-    private boolean executeCmd(final String[] args, final String error, final int accuracy) throws ServiceNotFoundException {
+    private boolean executeCmd(final String[] args, final String error, final int accuracy) throws ServiceNotFoundException, TerminationRequest {
         for (Service service : services) {
-            String name = service.getClass().getSimpleName();
+            final String name = service.getClass().getSimpleName();
             if (name.equalsIgnoreCase(args[0]) || (accuracy > 0 ? args[0].toLowerCase().startsWith(name.substring(0, accuracy).toLowerCase()) : false)) {
                 return service.run(this, ArrayUtils.subarray(args, 1, args.length));
             }
@@ -113,11 +107,12 @@ public abstract class AuthentiCmd {
     }
 
     /**
-     * Get and execute a user command with a default error message.
+     * Get and execute a user command with a default error message "Unrecognized
+     * command, try again.".
      *
      * @see AuthentiCmd#getCommand(String, String, int) getCommand(String, String, int)
      */
-    public boolean getCommand(final String prompt, final int accuracy) {
+    public boolean getCommand(final String prompt, final int accuracy) throws TerminationRequest {
         return getCommand(prompt, "Unrecognized command, try again.", accuracy);
     }
 
@@ -154,5 +149,12 @@ public abstract class AuthentiCmd {
         } catch (IOException ex) {
             throw new UnsupportedOperationException("Cannot read from input stream.", ex);
         }
+    }
+
+    /**
+     * Get the command line output {@link TipScript} specified on construction.
+     */
+    public TipScript getOutput() {
+        return output;
     }
 }
