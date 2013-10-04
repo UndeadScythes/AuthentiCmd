@@ -1,10 +1,13 @@
 package authenticmdtest;
 
-import authenticmdtest.implementation.*;
-import com.undeadscythes.authenticmd.service.*;
-import java.util.*;
+import authenticmdtest.implementation.TheProgram;
+import com.undeadscythes.authenticmd.exception.TerminationRequest;
+import com.undeadscythes.authenticmd.service.Help;
+import com.undeadscythes.authenticmd.service.Quit;
+import java.util.Arrays;
 import static org.junit.Assert.*;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author UndeadScythes
@@ -23,9 +26,9 @@ public class ServiceTest  {
         assertTrue(new Help().run(program, new String[]{""}));
     }
 
-    @Test
-    public void testQuitRun() {
+    @Test(expected = TerminationRequest.class)
+    public void testQuitRun() throws TerminationRequest {
         program.setServices(Arrays.asList(new String[]{Quit.class.getName()}), false);
-        assertFalse(new Quit().run(program, new String[]{""}));
+        new Quit().run(program, new String[]{""});
     }
 }
