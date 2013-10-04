@@ -1,6 +1,6 @@
 package com.undeadscythes.authenticmd.exception;
 
-import org.apache.commons.lang3.*;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Thrown when a {@link com.undeadscythes.authenticmd.service.Service} cannot be found matching a user's input.

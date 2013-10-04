@@ -1,7 +1,7 @@
 package authenticmdtest.implementation;
 
-import com.undeadscythes.authenticmd.*;
-import com.undeadscythes.tipscript.*;
+import com.undeadscythes.authenticmd.AuthentiCmd;
+import com.undeadscythes.tipscript.TipRedirect;
 
 /**
  * @author UndeadScythes
