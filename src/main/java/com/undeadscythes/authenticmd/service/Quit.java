@@ -1,7 +1,7 @@
 package com.undeadscythes.authenticmd.service;
 
 import com.undeadscythes.authenticmd.AuthentiCmd;
-import com.undeadscythes.authenticmd.exception.TerminationRequestException;
+import com.undeadscythes.authenticmd.exception.TerminationRequest;
 
 /**
  * A default service that will always return false.
@@ -10,7 +10,7 @@ import com.undeadscythes.authenticmd.exception.TerminationRequestException;
  */
 public class Quit extends Service {
     @Override
-    public boolean run(final AuthentiCmd program, final String[] args) throws TerminationRequestException {
-        throw new TerminationRequestException(this);
+    public boolean run(final AuthentiCmd program, final String[] args) throws TerminationRequest {
+        throw new TerminationRequest(this);
     }
 }

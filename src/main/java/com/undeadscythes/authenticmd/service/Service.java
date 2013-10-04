@@ -1,7 +1,7 @@
 package com.undeadscythes.authenticmd.service;
 
 import com.undeadscythes.authenticmd.AuthentiCmd;
-import com.undeadscythes.authenticmd.exception.TerminationRequestException;
+import com.undeadscythes.authenticmd.exception.TerminationRequest;
 
 /**
  * Provides a particular service to the user.
@@ -15,14 +15,14 @@ public abstract class Service {
      *
      * @return False if the {@link Service} did not complete successfully
      */
-    public abstract boolean run(final AuthentiCmd program, final String[] args) throws TerminationRequestException;
+    public abstract boolean run(final AuthentiCmd program, final String[] args) throws TerminationRequest;
 
     /**
      * Convenience method for supplying only a single argument.
      *
      * @see #run(AuthentiCmd, String[]) run(AuthentiCmd, String[])
      */
-    public boolean run(final AuthentiCmd program, final String arg) throws TerminationRequestException {
+    public boolean run(final AuthentiCmd program, final String arg) throws TerminationRequest {
         return run(program, new String[]{arg});
     }
 }
