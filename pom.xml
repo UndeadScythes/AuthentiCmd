@@ -6,13 +6,13 @@
 
   <groupId>com.undeadscythes</groupId>
   <artifactId>AuthentiCmd</artifactId>
-  <version>Alpha-3.0-SNAPSHOT</version>
+  <version>Beta-1.0</version>
   <packaging>jar</packaging>
   <dependencies>
     <dependency>
       <groupId>com.undeadscythes</groupId>
       <artifactId>TipScript</artifactId>
-      <version>Alpha-3.1</version>
+      <version>Alpha-3.1.1</version>
       <type>jar</type>
     </dependency>
     <dependency>
@@ -61,6 +61,7 @@
 	  <execution>
 	    <phase>process-sources</phase>
 	    <goals>
+	      <goal>display-plugin-updates</goal>
 	      <goal>display-dependency-updates</goal>
 	    </goals>
 	  </execution>
@@ -91,15 +92,15 @@
     </plugins>
   </build>
 
-  <name>AuthentiCmd</name>
-  <description>A command based application that extends AuthenticCmd has access to a very tidy
-user input handler. AuthentiCmd allows the author to validate input as it
-arrives and initiate a loop to collect user input and run services based on
-these inputs.
+  <name>${project.artifactId}</name>
+  <description>A command based application that extends ${project.artifactId}
+has access to a very tidy user input handler. ${project.artifactId} allows the
+author to validate input as it arrives and initiate a loop to collect user input
+and run services based on these inputs.
 
 Services are defined as operations that can accept command line arguments from
 the user and execute a set of code on request.</description>
-  <url>https://github.com/UndeadScythes/AuthentiCmd</url>
+  <url>https://github.com/UndeadScythes/${project.artifactId}</url>
   <inceptionYear>2013</inceptionYear>
   <licenses>
     <license>
